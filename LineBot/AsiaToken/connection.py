@@ -36,11 +36,12 @@ def getData(userId): #address&url
     values = {'userID': userId}
 
     data = urllib.parse.urlencode(values)
-    data = data.encode('ascii')
+    data = data.encode('ascii') # data should be bytes
     req = urllib.request.Request(url, data)
     with urllib.request.urlopen(req) as response:
-        the_page = response.read()
-        result = the_page.decode('utf-8')
-        print(result)
+        the_page = response.read().decode('utf-8')
+        result = the_page.split(",")
+        print(result[0])
+        print(result[1])
     return result
     #getVal

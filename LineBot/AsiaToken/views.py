@@ -1,6 +1,8 @@
 
 # Create your views here.
+from ast import Pass
 from email import message
+from time import sleep
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
@@ -16,6 +18,7 @@ from liffpy import (
 )
 
 import json
+import time
 #  qrcode
 import qrcode
 from PIL import Image
@@ -64,17 +67,11 @@ def callback(request):
             elif event.message.text == '詳細資料':
                 detailsInfo = details()
                 line_bot_api.reply_message(event.reply_token,  FlexSendMessage(alt_text='錢包帳戶',contents = detailsInfo))
-            elif 'https://' in mtext:
+            elif event.message.text == '資產移轉':
                 try:
-                    #新增LIFF頁面到LINEBOT中
-                    liff_id = liff_api.add(
-                        view_type="tall",
-                        view_url=mtext)
-
-                    message.append(TextSendMessage(text='https://liff.line.me/'+liff_id))
-                    line_bot_api.reply_message(event.reply_token,message)
+                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text='https://liff.line.me/1657597194-A0PEBQ1D'))
                 except:
-                    print(err.message)
+                    pass
 
             else:
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))
@@ -106,6 +103,8 @@ def createWallet(event):
     userAdr = connection.signup(getUid) # call js API signup function
     get_img = qrcode.make(userAdr) # make this user QR code
     get_imgUrl = imgur.uploadImg(get_img, getUid) # call imgur.py get imgur's URL
+    # get_imgUrl = 'https://i.imgur.com/TGpCxRE.png'
+    time.sleep(2)
     message = connection.setImage(getUid, get_imgUrl) #call js API setImage function
     linkResult = line_bot_api.link_rich_menu_to_user(getUid, 'richmenu-002d04a75b219f9d4654552a2eeb6418')
     # get_img.show()
@@ -117,11 +116,11 @@ def getWalletInfo(event):
     print(getUid)
 
     get_LevelDb_imgUrl = connection.getData(getUid)
-
+    print(get_LevelDb_imgUrl)
     f = open('AsiaToken/Json/signup.json', encoding='utf-8')
     data = json.load(f)
-    data['hero']['url'] = get_LevelDb_imgUrl['address'] # address
-    data['contents']['text'] = get_LevelDb_imgUrl['url']  # url
+    data['hero']['url'] = get_LevelDb_imgUrl['url'] # url
+    data['contents']['text'] = get_LevelDb_imgUrl['address']  # address
     message = data
     return message
 
@@ -136,8 +135,6 @@ def test():
     data = json.load(f)
     message = data
     return message
-
-
 
 #  web render html
 def liff(request):
