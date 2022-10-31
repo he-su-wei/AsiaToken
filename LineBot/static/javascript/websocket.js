@@ -1,4 +1,5 @@
 const websocket = new WebSocket("ws://localhost:5268/"); 
+// const websocket = new WebSocket("ws://120.108.111.231:5268/"); 
 
 websocket.onopen = function () {
     console.log('already bconnet ws');
@@ -11,7 +12,6 @@ function sendData() {
     const event = {
         count : AUT_val,
         walletAddress : addressId,
-        
     }
 
     websocket.send(JSON.stringify(event));

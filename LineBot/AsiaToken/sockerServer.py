@@ -1,7 +1,7 @@
 import json
 import asyncio
 import websockets
-from AsiaToken import connection
+import connection
 async def echo(websocket):
     async for message in websocket:
         await websocket.send("server : " + json.dumps(message))
@@ -10,6 +10,7 @@ async def echo(websocket):
         data = json.loads(message)
         count = data["count"]
         walletAddress = data["walletAddress"]
+        print(count, walletAddress)
 
         connection.transferAUT(count, walletAddress)
 

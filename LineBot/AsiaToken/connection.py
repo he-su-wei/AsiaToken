@@ -62,19 +62,20 @@ def accountBalance(userId): #address&url
 
 # 取得交易紀錄
 def getAccountData(userId): #address&url
-    url = 'http://120.108.111.229:8080/accountBalance'
+    url = 'http://120.108.111.229:8080/getAccountData'
     values = {'userID': userId}
 
     data = urllib.parse.urlencode(values)
     data = data.encode('ascii')
     req = urllib.request.Request(url, data)
     with urllib.request.urlopen(req) as response:
-        the_page = response.read()
-        result = the_page.decode('utf-8')
-        print(result[0]) # from:'user'
-        print(result[1]) # to : 'userAddress'
-        print(result[2]) # value : "count" 交易數量
-        print(result[3]) # time : 'timestamp'
+        the_page = response.read().decode('utf-8')
+        result = the_page
+        print(result)
+        # print(result[0]) # from:'user'
+        # print(result[1]) # to : 'userAddress'
+        # print(result[2]) # value : "count" 交易數量
+        # print(result[3]) # time : 'timestamp'
     return result
 
 # 交易
