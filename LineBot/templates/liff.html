@@ -12,43 +12,9 @@
         <!-- jquery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <!-- line api -->
-        <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+        <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
-        <script>
-            var YourLiffAppId = '1657597194-A0PEBQ1D';
-            function initializeLiff(myLiffId) {
-                liff
-                    .init({
-                        liffId:myLiffId,
-                        withLoginOnExternalBrowser: true,
-                    })
-                    .then(() => {
-                        liff.getProfile().then(function (e) {
-                            alert(e.userId)
-                        });
-                    })
-                    .catch((err) => {
-                        alert(JSON.stringify(err));
-                    });
-            }
-            $(document).ready(function () {
-                //init LIFF
-                initializeLiff(YourLiffAppId);
-
-                $('#ButtonScan').click(() => {
-                    liff.scanCodeV2()
-                    .then((result) => {
-                        //alert(JSON.stringify(result));
-                        alert(result.value)
-                        // $('#field_info').val(ret.value);
-                    }, (err) => {
-                        alert(JSON.stringify(err));
-                    }
-                    );
-                });
-
-            });
-        </script>
+        
     </head>
     <body style="text-align: center;">
         <div>
@@ -56,14 +22,29 @@
             <!-- <input class="form-control form-control-lg" type="text" placeholder="input amount" aria-label=".form-control-lg example"> -->
             <!-- <button type="button" class="btn btn-outline-info btn-lg">Submit</button> -->
             <div class="input-group input-group-lg">
+              
                 <div class="input-group input-group-lg mx-3 my-5">
-                    <span class="input-group-text" id="inputGroup-sizing-lg">AT</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Input Amount">
+                    <span class="input-group-text" id="inputGroup-sizing-lg">AUT</span>
+                    <input id="AUT-value" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Input Amount" minlength="1">
                 </div>
+                <div class="input-group input-group-lg mx-3 my-5">
+                    <input id="to-address" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Input Address" minlength="10">
+                </div>
+                
+            </div>
         </div>
-       <div class="footer fixed-bottom ">
-            <button id="ButtonScan" type="button" class="btn btn-outline-info btn-lg" style="width: 10rem;">送出</button>
+        <div class="footer fixed-bottom ">
+            <button onclick="sendData()" type="button" class="btn btn-outline-info btn-lg" style="width: 10rem;">送出</button>
        </div>
+       <!-- <div class="footer fixed-bottom ">
+            <button id="ButtonScan" type="button" class="btn btn-outline-info btn-lg" style="width: 10rem;">送出</button>
+       </div> -->
+
+       <script src="../static/javascript/lineLogin.js"></script>
+       <script src="../static/javascript/websocket.js"></script>
+        
+        
        
     </body>
+    
 </html>
