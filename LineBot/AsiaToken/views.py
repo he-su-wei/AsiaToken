@@ -8,6 +8,7 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbid
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 
+
 # line bot api
 from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError, LineBotApiError
@@ -81,17 +82,31 @@ def callback(request):
         return HttpResponseBadRequest()
 
 # 我的資產
-def buttons_message():
+def buttons_message(event):
+    getUid = event.source.user_id
+    print(getUid)
+
     f = open('AsiaToken/Json/assets.json', encoding='utf-8')
     data = json.load(f)
-    # data['hero']['url'] = 'https://i.imgur.com/cC7OJXr.png'
+
+    Balance = connection.accountBalance(getUid)
+    data['body']['contents'][1]['contents'][0]['contents'][1]['text']= Balance[0]
     message = data
     return message
 
 # 交易紀錄
-def Carousel_Template():
+def Carousel_Template(event):
+    getUid = event.source.user_id
+    print(getUid)
+    
     f = open('AsiaToken/Json/transaction.json', encoding='utf-8')
     data = json.load(f)
+    
+    transactionInfo = connection.getAccountData(getUid)
+    # data['contents']['body']['contents']['text'] = transactionInfo['from'] # from
+    data['contents'][0]['body']['contents'][2]['contents'][1]['text'] = transactionInfo['to']  # to : 'userAddress
+    data['contents'][0]['body']['contents'][3]['contents'][1]['text'] = transactionInfo['value'] # value : "count"
+    data['contents'][0]['body']['contents'][4]['contents'][1]['text']= transactionInfo['time']  # time
     message = data
     return message
 
@@ -115,7 +130,7 @@ def getWalletInfo(event):
     getUid = event.source.user_id
     print(getUid)
 
-    get_LevelDb_imgUrl = connection.getData(getUid)
+    get_LevelDb_imgUrl = connection.getval(getUid)
     print(get_LevelDb_imgUrl)
     f = open('AsiaToken/Json/signup.json', encoding='utf-8')
     data = json.load(f)
@@ -129,6 +144,8 @@ def details():
     data = json.load(f)
     message = data
     return message
+
+
 
 def test():
     f = open('AsiaToken/Json/test.json', encoding='utf-8')
