@@ -9,10 +9,17 @@ function initializeLiff(myLiffId) {
     .then(() => {
         if (!liff.isLoggedIn()) {
             console.log('你尚未登入過')
-            liff.login({ redirectUri: 'https://21dc-49-213-161-66.jp.ngrok.io/liff'});
-            alert(location.href)
+            liff.login({ redirectUri: location.href});
+            console.log(location.href);
+
+            liff.getProfile().then(function (e) {
+                alert(e.userId);
+            });
+            return e
         }else {
             console.log('你已登入過了')
+            console.log(e)
+            return e
         }
         //     liff.login({redirectUri : location.href})
         // }
@@ -24,22 +31,26 @@ function initializeLiff(myLiffId) {
         alert(JSON.stringify(err));
         console.log('初始化失敗')
     });
+    
 }
 $(document).ready(function () {
     //init LIFF
-    console.log(YourLiffAppId)
     initializeLiff(YourLiffAppId);
+    liff.ready.then(() => {
+        // do something you want when liff.init finishes
+        $('#ButtonScan').click(() => {
+        
+            liff.scanCodeV2()
+            .then((result) => {
+                //alert(JSON.stringify(result));
+                console.log(result.value)
+                // $('#field_info').val(ret.value);
+            }, (err) => {
+                alert(JSON.stringify(err));
+            }
+            );
+        });
+      });
 
-    $('#ButtonScan').click(() => {
-        liff.scanCodeV2()
-        .then((result) => {
-            //alert(JSON.stringify(result));
-            console.log(result.value)
-            // $('#field_info').val(ret.value);
-        }, (err) => {
-            alert(JSON.stringify(err));
-        }
-        );
-    });
 
 });

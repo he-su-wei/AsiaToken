@@ -105,9 +105,6 @@ def Carousel_Template(event):
     
     transactionInfo = connection.getAccountData(getUid)
     print("==============================")
-    re = transactionInfo[2:]
-    re1 = transactionInfo[:-2]
-    print(re)
     # data['contents']['body']['contents']['text'] = transactionInfo['from'] # from
     data['contents'][0]['body']['contents'][2]['contents'][1]['text'] = transactionInfo[1]['to']  # to : 'userAddress
     data['contents'][0]['body']['contents'][3]['contents'][1]['text'] = transactionInfo[2]['value'] # value : "count"

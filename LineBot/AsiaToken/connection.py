@@ -70,8 +70,7 @@ def getAccountData(userId): #address&url
     req = urllib.request.Request(url, data)
     with urllib.request.urlopen(req) as response:
         the_page = response.read().decode('utf-8')
-        result = the_page
-        print(result)
+        result = the_page.split(",")
         # print(result[0]) # from:'user'
         # print(result[1]) # to : 'userAddress'
         # print(result[2]) # value : "count" 交易數量
@@ -79,9 +78,9 @@ def getAccountData(userId): #address&url
     return result
 
 # 交易
-def transferAUT(userId,value): #address&url
-    url = 'http://120.108.111.229:8080/transferAUT'
-    values = {'userID': userId}
+def userTransfer(userId,address2,value): #address&url
+    url = 'http://120.108.111.229:8080/userTransfer'
+    values = {'userID': userId,'addressTo':address2, 'value': value}
 
     data = urllib.parse.urlencode(values)
     data = data.encode('ascii')

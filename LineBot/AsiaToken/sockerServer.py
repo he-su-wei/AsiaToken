@@ -8,11 +8,12 @@ async def echo(websocket):
         print("client : " + message)
 
         data = json.loads(message)
+        userID = data['userId']
         count = data["count"]
         walletAddress = data["walletAddress"]
-        print(count, walletAddress)
+        print(userID, count, walletAddress)
 
-        connection.transferAUT(count, walletAddress)
+        connection.userTransfer(userID, count, walletAddress)
 
 
 async def main():
