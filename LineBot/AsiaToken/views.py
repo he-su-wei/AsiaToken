@@ -35,7 +35,9 @@ liff_api = LIFF(settings.LINE_CHANNEL_ACCESS_TOKEN)
 
 # class lineMethod:
 
+
 def callback(request):
+    global USERID
     if request.method == 'POST':
         signature = request.META['HTTP_X_LINE_SIGNATURE']
         body = request.body.decode('utf-8')
@@ -70,7 +72,9 @@ def callback(request):
                 line_bot_api.reply_message(event.reply_token,  FlexSendMessage(alt_text='錢包帳戶',contents = detailsInfo))
             elif event.message.text == '資產移轉':
                 try:
+                    USERID = event.source.user_id
                     line_bot_api.reply_message(event.reply_token, TextSendMessage(text='https://liff.line.me/1657597194-A0PEBQ1D'))
+                    
                 except:
                     pass
 
@@ -171,4 +175,49 @@ def test():
 
 #  web render html
 def liff(request):
+    # global USERID
+    # print(USERID)
+    if request.method == 'GET':
+            body = request.GET
+            if body.get('AUT-value') != None:
+                if body.get('to-address') != None:
+                    count = body.get('AUT-value')
+                    address = body.get('to-address')
+                    print(count, address)
+                    # connection.userTransfer(USERID, count, address)
+                else:
+                    print('address no data')
+            else:
+                print('count no data')
     return render(request, 'liff.html')
+
+def confirm(event):
+    getUid = event.source.user_id
+    print(getUid)
+
+    f = open('AsiaToken/Json/confirm.json', encoding='utf-8')
+    data = json.load(f)
+    message = data
+    return message
+
+
+# def method_GET(request):
+#     # getUid = event.source.user_id
+#     # print(getUid)
+#     # print('none')
+#     global USERID
+#     print(USERID)
+#     if request.method == 'GET':
+#             body = request.GET
+#             if body.get('AUT-value') != None:
+#                 if body.get('to-address') != None:
+#                     count = body.get('AUT-value')
+#                     address = body.get('to-address')
+#                     print(count, address)
+#                     # connection.userTransfer(USERID, count, address)
+#                 else:
+#                     print('address no data')
+#             else:
+#                 print('count no data')
+#     return render(request, 'liff.html')
+    

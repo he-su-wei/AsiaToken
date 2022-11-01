@@ -21,27 +21,30 @@
             <h1>轉出數量</h1>
             <!-- <input class="form-control form-control-lg" type="text" placeholder="input amount" aria-label=".form-control-lg example"> -->
             <!-- <button type="button" class="btn btn-outline-info btn-lg">Submit</button> -->
-            <div class="input-group input-group-lg">
-              
-                <div class="input-group input-group-lg mx-3 my-5">
-                    <span class="input-group-text" id="inputGroup-sizing-lg">AUT</span>
-                    <input id="AUT-value" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Input Amount" minlength="1">
+            <form name='transaction' action="/liff" method="GET">
+                <div class="input-group input-group-lg">
+                    <!-- AUT-value --> 
+                    <input id="AUT-value" name="AUT-value" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Input Amount" minlength="1">
                 </div>
-                <div class="input-group input-group-lg mx-3 my-5">
-                    <input id="to-address" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Input Address" minlength="10">
+                <br/>
+                <!-- to-address -->
+                <div class="input-group input-group-lg">
+                    <input id="to-address" name="to-address" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Input Address" minlength="10">
                 </div>
                 
-            </div>
+                <!-- submit -->
+                <div class="footer fixed-bottom ">
+                    <button  type="submit" class="btn btn-outline-info btn-lg" style="width: 10rem;">送出</button>
+               </div>
+            </from>
         </div>
-        <div class="footer fixed-bottom ">
-            <button onclick="sendData()" type="button" class="btn btn-outline-info btn-lg" style="width: 10rem;">送出</button>
-       </div>
+        
        <!-- <div class="footer fixed-bottom ">
             <button id="ButtonScan" type="button" class="btn btn-outline-info btn-lg" style="width: 10rem;">送出</button>
        </div> -->
 
        <!-- <script src="../static/javascript/lineLogin.js"></script> -->
-       <script src="../static/javascript/websocket.js"></script>
+       <!-- <script src="../static/javascript/websocket.js"></script> -->
         
         
        
