@@ -1,5 +1,5 @@
 var YourLiffAppId = '1657597194-A0PEBQ1D';
-
+initializeLiff(YourLiffAppId)
 function initializeLiff(myLiffId) {
     
     console.log(myLiffId)
@@ -8,18 +8,16 @@ function initializeLiff(myLiffId) {
     })
     .then(() => {
         if (!liff.isLoggedIn()) {
-            console.log('你尚未登入過')
+            console.log('你尚未登入過!!')
             liff.login({ redirectUri: location.href});
             console.log(location.href);
 
             liff.getProfile().then(function (e) {
                 alert(e.userId);
             });
-            return e
         }else {
             console.log('你已登入過了')
-            console.log(e)
-            return e
+
         }
         //     liff.login({redirectUri : location.href})
         // }
@@ -31,26 +29,68 @@ function initializeLiff(myLiffId) {
         alert(JSON.stringify(err));
         console.log('初始化失敗')
     });
-    
 }
-$(document).ready(function () {
-    //init LIFF
-    initializeLiff(YourLiffAppId);
-    liff.ready.then(() => {
-        // do something you want when liff.init finishes
-        $('#ButtonScan').click(() => {
-        
-            liff.scanCodeV2()
-            .then((result) => {
-                //alert(JSON.stringify(result));
-                console.log(result.value)
-                // $('#field_info').val(ret.value);
-            }, (err) => {
-                alert(JSON.stringify(err));
-            }
-            );
-        });
-      });
 
+function requestGet(){
+    const AUT_Sum = document.getElementById("AUT-value").value;
+    console.log(AUT_Sum)
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", 'https://5f88-210-63-208-183.jp.ngrok.io/liff?AUT-value=' + AUT_Sum , false ); // false for synchronous request
+    xmlHttp.send()
+    // return xmlHttp.responseText;
+
+}
+
+$('#ButtonScan').click(() => {
+    requestGet()
+    liff.sendMessages([
+        {
+            "type": "flex",
+            "altText": "掃描交易地址",
+            "contents": {
+                "type": "bubble",
+                "header": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "掃描交易地址",
+                        "weight": "bold",
+                        "size": "xxl",
+                        "margin": "none",
+                        "align": "center"
+                    }
+                    ]
+                },
+                "footer": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                    {
+                        "type": "button",
+                        "style": "primary",
+                        "color": "#905c44",
+                        "margin": "xxl",
+                        "action": {
+                        "type": "uri",
+                        "label": "掃描",
+                        "uri": "https://liff.line.me/1657597194-mwWeOo6N"
+                        }
+                    }
+                    ]
+                }
+            }
+        },
+        
+    ])
+    
+    .then(() => {
+        liff.closeWindow();
+        console.log("message sent");
+    })
+    .catch((err) => {
+        console.log("error", err);
+    });
 
 });

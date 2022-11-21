@@ -1,13 +1,11 @@
 
 # Create your views here.
-from ast import Pass
-from email import message
 from time import sleep
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from django.views import View
 
 # line bot api
 from linebot import LineBotApi, WebhookParser
@@ -17,6 +15,15 @@ from liffpy import (
     LineFrontendFramework as LIFF,
     ErrorResponse
 )
+
+
+line_bot_api = LineBotApi('<channel access token>')
+
+try:
+    profile = line_bot_api.get_profile('<user_id>')
+except LineBotApiError as e:
+    # error handle
+    ...
 
 import json
 import time
@@ -62,6 +69,8 @@ def callback(request):
                 transaction = Carousel_Template(event)
                 line_bot_api.reply_message(event.reply_token, FlexSendMessage(alt_text='交易紀錄', contents = transaction))
             elif event.message.text == '我要開戶':
+                # 
+                # line_bot_api.push_message(event.source.user_id,  TextSendMessage(text='請稍後，正在開戶中'))
                 createwallet = createWallet(event)
                 line_bot_api.reply_message(event.reply_token,  TextSendMessage(alt_text='我要開戶', text = createwallet))
             elif event.message.text == '錢包帳戶':
@@ -89,13 +98,14 @@ def callback(request):
 def buttons_message(event):
     getUid = event.source.user_id
     print(getUid)
+    # U090f1a921bb409eac239b6ae688f9a08
 
     f = open('AsiaToken/Json/assets.json', encoding='utf-8')
     data = json.load(f)
 
     Balance = connection.accountBalance(getUid)
     print(Balance)
-    data['body']['contents'][1]['contents'][0]['contents'][1]['text']= Balance[0]
+    data['body']['contents'][1]['contents'][0]['contents'][1]['text'] = Balance
     message = data
     return message
 
@@ -109,16 +119,21 @@ def Carousel_Template(event):
     
     transactionInfo = connection.getAccountData(getUid)
     print("==============================")
-    # data['contents']['body']['contents']['text'] = transactionInfo['from'] # from
-    data['contents'][0]['body']['contents'][2]['contents'][1]['text'] = transactionInfo[1]['to']  # to : 'userAddress
-    data['contents'][0]['body']['contents'][3]['contents'][1]['text'] = transactionInfo[2]['value'] # value : "count"
-    # 時間轉換
-    time_stamp = transactionInfo['time'] # 設定timeStamp
-    struct_time = time.localtime(time_stamp) # 轉成時間元組
-    timeString = time.strftime("%Y-%m-%d %H:%M:%S", struct_time) # 轉成字串
-    print(timeString)
+    print(transactionInfo)
+    print(len(data))
+    for i in range(len(transactionInfo), len(data) ,-1):
+        dictNum = len(transactionInfo) - len(data)
+        # data['contents']['body']['contents']['text'] = transactionInfo['from'] # from
+        data['contents'][1]['body']['contents'][2]['contents'][1]['text'] = transactionInfo[1]['to']  # to : 'userAddress
+        data['contents'][0]['body']['contents'][3]['contents'][1]['text'] = transactionInfo[1]['value'] # value : "count"
+        # 時間轉換
+        
+        time_stamp = transactionInfo[1]['time'] # 設定timeStamp
+        struct_time = time.localtime(int(time_stamp)) # 轉成時間元組
+        timeString = time.strftime("%Y-%m-%d %H:%M:%S", struct_time) # 轉成字串
+        print(timeString)
 
-    data['contents'][0]['body']['contents'][4]['contents'][1]['text']= timeString  # time
+        data['contents'][0]['body']['contents'][4]['contents'][1]['text']= timeString  # time
     message = data
     return message
 
@@ -156,6 +171,7 @@ def getWalletInfo(event):
 # 詳細資料
 def details(event):
     getUid = event.source.user_id
+    # getName = line_bot_api.get_profile(userId)
     print(getUid)
 
     f = open('AsiaToken/Json/details.json', encoding='utf-8')
@@ -175,49 +191,38 @@ def test():
 
 #  web render html
 def liff(request):
-    # global USERID
-    # print(USERID)
+    global getAUT_value
     if request.method == 'GET':
             body = request.GET
             if body.get('AUT-value') != None:
-                if body.get('to-address') != None:
-                    count = body.get('AUT-value')
-                    address = body.get('to-address')
-                    print(count, address)
-                    # connection.userTransfer(USERID, count, address)
-                else:
-                    print('address no data')
+                
+                count = body.get('AUT-value')
+                getAUT_value = count
+                print('python :' + count)
             else:
-                print('count no data')
+                print('err')
     return render(request, 'liff.html')
 
-def confirm(event):
-    getUid = event.source.user_id
-    print(getUid)
+def scan(request):
+    if request.method == 'GET':
+            # print('2')
+            body = request.GET
+            if body.get('toAddress') != None:
+                address = body.get('toAddress')
+                # userId = body.get('userId')
 
-    f = open('AsiaToken/Json/confirm.json', encoding='utf-8')
-    data = json.load(f)
-    message = data
-    return message
+                # accountBalance = connection.accountBalance(USERID)
+                # if accountBalance <= getAUT_value:
 
+                print('python : ' + address)
+                print('python : ' + str(USERID))
+                print(type(address), type(USERID), type(getAUT_value))
+                # connection.userTransfer(USERID, getAUT_value, address)
+            else:
+                print('address no data')
 
-# def method_GET(request):
-#     # getUid = event.source.user_id
-#     # print(getUid)
-#     # print('none')
-#     global USERID
-#     print(USERID)
-#     if request.method == 'GET':
-#             body = request.GET
-#             if body.get('AUT-value') != None:
-#                 if body.get('to-address') != None:
-#                     count = body.get('AUT-value')
-#                     address = body.get('to-address')
-#                     print(count, address)
-#                     # connection.userTransfer(USERID, count, address)
-#                 else:
-#                     print('address no data')
-#             else:
-#                 print('count no data')
-#     return render(request, 'liff.html')
-    
+    return render(request, 'scan.html')
+
+# def _sendDataToAPI():
+#     print(userID, self.fromAddress, self.AUT_value)
+    # connection.userTransfer(self.userID, self.fromAddress, self.AUT_value)

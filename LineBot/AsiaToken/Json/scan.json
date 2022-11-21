@@ -1,42 +1,38 @@
 {
-    "type": "bubble",
-    "body": {
-      "type": "box",
-      "layout": "vertical",
-      "contents": [
-        {
-          "type": "text",
-          "text": "掃描交易地址",
-          "weight": "bold",
-          "size": "xl",
-          "align": "center"
-        }
-      ]
-    },
-    "footer": {
-      "type": "box",
-      "layout": "vertical",
-      "spacing": "sm",
-      "contents": [
-        {
-          "type": "button",
-          "style": "link",
-          "height": "sm",
-          "action": {
-            "type": "uri",
-            "label": "掃描",
-            "uri": "https://linecorp.com"
-          },
-          "color": "#ffffff"
-        },
-        {
-          "type": "box",
-          "layout": "vertical",
-          "contents": [],
-          "margin": "sm"
-        }
-      ],
-      "flex": 0,
-      "backgroundColor": "#905c44"
-    }
+  "type": "flex",
+  "altText": "test",
+  "contents": {
+      "type": "bubble",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "掃描交易地址",
+            "weight": "bold",
+            "size": "xxl",
+            "margin": "none",
+            "align": "center"
+          }
+        ]
+      },
+      "footer": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "button",
+            "style": "primary",
+            "color": "#905c44",
+            "margin": "xxl",
+            "action": {
+              "type": "uri",
+              "label": "掃描",
+              "uri": "https://linecorp.com"
+            }
+          }
+        ]
+      }
   }
+}

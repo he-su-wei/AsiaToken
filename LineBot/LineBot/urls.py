@@ -21,5 +21,6 @@ from AsiaToken import views
 urlpatterns = [
     path('callback', views.callback),
     path('liff', views.liff),
+    path('scan', views.scan),
     path('admin/', admin.site.urls),
 ]

@@ -1,5 +1,6 @@
 from unittest import result
 import urllib.request, urllib.parse
+import json
 
 
 def signup(uid):
@@ -69,8 +70,10 @@ def getAccountData(userId): #address&url
     data = data.encode('ascii')
     req = urllib.request.Request(url, data)
     with urllib.request.urlopen(req) as response:
-        the_page = response.read().decode('utf-8')
-        result = the_page.split(",")
+        the_page = response.read()
+        result = the_page.decode('utf-8')
+        result = json.loads(result)
+        # result = the_page.split(",")
         # print(result[0]) # from:'user'
         # print(result[1]) # to : 'userAddress'
         # print(result[2]) # value : "count" 交易數量
@@ -89,4 +92,17 @@ def userTransfer(userId,address2,value): #address&url
         the_page = response.read()
         result = the_page.decode('utf-8')
         print(result) # true
+    return result
+
+def getUserAddress(userId): #address&url
+    url = 'http://120.108.111.229:8080/getUserAddress'
+    values = {'userID': userId}
+
+    data = urllib.parse.urlencode(values)
+    data = data.encode('ascii')
+    req = urllib.request.Request(url, data)
+    with urllib.request.urlopen(req) as response:
+        the_page = response.read()
+        result = the_page.decode('utf-8')
+        print(result) # address
     return result
