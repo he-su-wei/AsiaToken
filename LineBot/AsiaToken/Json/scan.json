@@ -25,11 +25,11 @@
             "type": "button",
             "style": "primary",
             "color": "#905c44",
-            "margin": "xxl",
+            "margin": "none",
             "action": {
               "type": "uri",
               "label": "掃描",
-              "uri": "https://linecorp.com"
+              "uri": ""
             }
           }
         ]

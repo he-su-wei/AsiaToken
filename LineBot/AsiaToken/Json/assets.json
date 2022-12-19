@@ -84,9 +84,9 @@
         "style": "link",
         "height": "sm",
         "action": {
-          "type": "message",
+          "type": "uri",
           "label": "資產移轉",
-          "text": "資產移轉"
+          "uri": "https://liff.line.me/1657672493-Ed95y1Rq"
         }
       }
     ],
