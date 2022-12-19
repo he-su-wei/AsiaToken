@@ -1,4 +1,4 @@
-var YourLiffAppId = '1657597194-A0PEBQ1D';
+var YourLiffAppId = '1657672493-Ed95y1Rq';
 initializeLiff(YourLiffAppId)
 function initializeLiff(myLiffId) {
     
@@ -19,11 +19,6 @@ function initializeLiff(myLiffId) {
             console.log('你已登入過了')
 
         }
-        //     liff.login({redirectUri : location.href})
-        // }
-        // liff.getProfile().then(function (e) {
-        //     alert(e.userId)
-        // });
     })
     .catch((err) => {
         alert(JSON.stringify(err));
@@ -35,8 +30,10 @@ function requestGet(){
     const AUT_Sum = document.getElementById("AUT-value").value;
     console.log(AUT_Sum)
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", 'https://5f88-210-63-208-183.jp.ngrok.io/liff?AUT-value=' + AUT_Sum , false ); // false for synchronous request
+    xmlHttp.open( "GET", 'https://2248-49-213-161-66.jp.ngrok.io/liff?AUT-value=' + AUT_Sum , false ); // false for synchronous request
     xmlHttp.send()
+
+
     // return xmlHttp.responseText;
 
 }
@@ -75,7 +72,7 @@ $('#ButtonScan').click(() => {
                         "action": {
                         "type": "uri",
                         "label": "掃描",
-                        "uri": "https://liff.line.me/1657597194-mwWeOo6N"
+                        "uri": "https://liff.line.me/1657672493-6Dzrp38q"
                         }
                     }
                     ]
