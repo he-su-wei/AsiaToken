@@ -1,0 +1,88 @@
+{
+  "type": "bubble",
+  "size": "kilo",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "spacing": "md",
+    "action": {
+      "type": "uri",
+      "uri": "https://linecorp.com"
+    },
+    "contents": [
+      {
+        "type": "text",
+        "text": "請確認交易資訊",
+        "wrap": true,
+        "color": "#aaaaaa",
+        "size": "xl",
+        "align": "center"
+      },
+      {
+        "type": "separator"
+      },
+      {
+        "type": "text",
+        "text": "hello, world",
+        "contents": [
+          {
+            "type": "span",
+            "text": "交易名稱 : ",
+            "weight": "bold"
+          },
+          {
+            "type": "span",
+            "text": "亞大幣"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "text": "hello, world",
+        "contents": [
+          {
+            "type": "span",
+            "text": "交易數量 : ",
+            "weight": "bold"
+          },
+          {
+            "type": "span",
+            "text": "1"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "text": "hello, world",
+        "contents": [
+          {
+            "type": "span",
+            "text": "交易對象 : ",
+            "weight": "bold"
+          },
+          {
+            "type": "span",
+            "text": "0x123"
+          }
+        ]
+      }
+    ]
+  },
+  "footer": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "button",
+        "style": "primary",
+        "color": "#905c44",
+        "margin": "none",
+        "action": {
+          "type": "uri",
+          "label": "移轉",
+          "uri": "http://linecorp.com/"
+        }
+      }
+    ]
+  }
+}
