@@ -15,12 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-# from django.conf.urls import url
 from AsiaToken import views
 
 urlpatterns = [
     path('callback', views.callback),
     path('liff', views.liff),
     path('scan', views.scan),
+    path('transaction',views._sendDataToAPI),
     path('admin/', admin.site.urls),
 ]
