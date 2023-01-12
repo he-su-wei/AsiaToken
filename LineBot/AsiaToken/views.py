@@ -19,12 +19,6 @@ from liffpy import (
 
 line_bot_api = LineBotApi('<channel access token>')
 
-try:
-    profile = line_bot_api.get_profile('<user_id>')
-except LineBotApiError as e:
-    # error handle
-    ...
-
 import json
 import time
 #  qrcode
@@ -44,11 +38,10 @@ liff_api = LIFF(settings.LINE_CHANNEL_ACCESS_TOKEN)
 
 
 def callback(request):
-    global USERID
+    # global USERID
     if request.method == 'POST':
         signature = request.META['HTTP_X_LINE_SIGNATURE']
         body = request.body.decode('utf-8')
-
         try:
             events = parser.parse(body, signature)
         except InvalidSignatureError:
@@ -79,18 +72,16 @@ def callback(request):
             elif event.message.text == '詳細資料':
                 detailsInfo = details(event)
                 line_bot_api.reply_message(event.reply_token,  FlexSendMessage(alt_text='錢包帳戶',contents = detailsInfo))
-            elif event.message.text == '資產移轉':
-                try:
-                    USERID = event.source.user_id
-                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text='https://liff.line.me/1657597194-A0PEBQ1D'))
-                    
-                except:
-                    pass
-
+            
+            # elif event.message.text == '資產移轉':
+            #     try:
+            #         # USERID = event.source.user_id
+            #         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='https://liff.line.me/1657672493-Ed95y1Rq'))
+            #     except:
+            #         pass
             else:
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))
         return HttpResponse()
-    
     else:
         return HttpResponseBadRequest()
 
@@ -120,20 +111,20 @@ def Carousel_Template(event):
     transactionInfo = connection.getAccountData(getUid)
     print("==============================")
     print(transactionInfo)
-    print(len(data))
-    for i in range(len(transactionInfo), len(data) ,-1):
+    # print(len(data))
+    print(len(transactionInfo))
+    for i in range(5):
+        print(i)
         dictNum = len(transactionInfo) - len(data)
         # data['contents']['body']['contents']['text'] = transactionInfo['from'] # from
-        data['contents'][1]['body']['contents'][2]['contents'][1]['text'] = transactionInfo[1]['to']  # to : 'userAddress
-        data['contents'][0]['body']['contents'][3]['contents'][1]['text'] = transactionInfo[1]['value'] # value : "count"
+        data['contents'][i]['body']['contents'][2]['contents'][1]['text'] = transactionInfo[len(transactionInfo)- 1 - i]['to']  # to : 'userAddress
+        data['contents'][i]['body']['contents'][3]['contents'][1]['text'] = transactionInfo[len(transactionInfo)- 1 - i]['value'] # value : "count"
         # 時間轉換
-        
-        time_stamp = transactionInfo[1]['time'] # 設定timeStamp
+        time_stamp = transactionInfo[len(transactionInfo)- 1 - i]['time'] # 設定timeStamp
         struct_time = time.localtime(int(time_stamp)) # 轉成時間元組
         timeString = time.strftime("%Y-%m-%d %H:%M:%S", struct_time) # 轉成字串
-        print(timeString)
 
-        data['contents'][0]['body']['contents'][4]['contents'][1]['text']= timeString  # time
+        data['contents'][i]['body']['contents'][4]['contents'][1]['text']= timeString  # time
     message = data
     return message
 
@@ -147,11 +138,13 @@ def createWallet(event):
     get_img = qrcode.make(userAdr) # make this user QR code
     get_imgUrl = imgur.uploadImg(get_img, getUid) # call imgur.py get imgur's URL
     # get_imgUrl = 'https://i.imgur.com/GO95Y6J.png'
-    time.sleep(8)
     message = connection.setImage(getUid, get_imgUrl) #call js API setImage function
     linkResult = line_bot_api.link_rich_menu_to_user(getUid, 'richmenu-002d04a75b219f9d4654552a2eeb6418')
     # get_img.show()
     return message # suess
+# richmenu-f904f4354229ab624112dfa36da2f195 //開戶 
+# richmenu-002d04a75b219f9d4654552a2eeb6418 //資產、錢包
+# line_bot_api.link_rich_menu_to_user('U090f1a921bb409eac239b6ae688f9a08', 'richmenu-f904f4354229ab624112dfa36da2f195')
 
 # 取得帳戶
 def getWalletInfo(event):
@@ -182,22 +175,17 @@ def details(event):
     message = data
     return message
 
-
-def test():
-    f = open('AsiaToken/Json/test.json', encoding='utf-8')
-    data = json.load(f)
-    message = data
-    return message
-
+userTransfer = {'userID': '', 'getAUT_value': 0, 'address': ''}
 #  web render html
 def liff(request):
-    global getAUT_value
+    # global getAUT_value
     if request.method == 'GET':
             body = request.GET
             if body.get('AUT-value') != None:
                 
                 count = body.get('AUT-value')
-                getAUT_value = count
+                # getAUT_value = count
+                userTransfer['getAUT_value'] = count
                 print('python :' + count)
             else:
                 print('err')
@@ -205,24 +193,29 @@ def liff(request):
 
 def scan(request):
     if request.method == 'GET':
-            # print('2')
             body = request.GET
             if body.get('toAddress') != None:
                 address = body.get('toAddress')
-                # userId = body.get('userId')
-
-                # accountBalance = connection.accountBalance(USERID)
+                userId = body.get('userId')
+                userTransfer ['address'] = address
+                userTransfer['userID'] = userId
+                # accountBalance = connection.accountBalance(userId)
                 # if accountBalance <= getAUT_value:
-
-                print('python : ' + address)
-                print('python : ' + str(USERID))
-                print(type(address), type(USERID), type(getAUT_value))
-                # connection.userTransfer(USERID, getAUT_value, address)
+                
+                print('python : ' + userTransfer ['address'])
+                print('python : ' + userTransfer['userID'])
+                _sendDataToAPI()
+                # connection.userTransfer(userTransfer['userID'], userTransfer['getAUT_value'], userTransfer ['address'])
             else:
                 print('address no data')
-
     return render(request, 'scan.html')
 
-# def _sendDataToAPI():
-#     print(userID, self.fromAddress, self.AUT_value)
-    # connection.userTransfer(self.userID, self.fromAddress, self.AUT_value)
+def _sendDataToAPI(request):
+    # print(userTransfer)
+    try:
+        # time.sleep(5)
+        print(userTransfer['userID'], userTransfer['getAUT_value'],  userTransfer ['address'])
+        connection.userTransfer(userTransfer['userID'], userTransfer['getAUT_value'],  userTransfer ['address'])
+    except:
+        print("交易失敗")
+    return render(request, 'transaction.html')
