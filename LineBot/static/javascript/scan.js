@@ -1,6 +1,7 @@
 var YourLiffAppId = '1657672493-6Dzrp38q';
 initializeLiff(YourLiffAppId)
 
+// let userTransactionInfo = {address : '', value : 0}
 function initializeLiff(myLiffId) {
     liff.init({
         liffId:myLiffId, 
@@ -40,7 +41,7 @@ function scan() {
                 console.log(e.userId);
                 var xmlHttp = new XMLHttpRequest();
               
-                xmlHttp.open( "GET", 'https://24c8-49-213-161-66.jp.ngrok.io/scan?toAddress=' + getAddress + '&' + 'userId=' + e.userId ,  false ); // false for synchronous request
+                xmlHttp.open( "GET", 'https://token.asia.edu.tw/scan?toAddress=' + getAddress + '&' + 'userId=' + e.userId ,  false ); // false for synchronous request
                 xmlHttp.send();
                 sendInfo(result.value)
                 liff.closeWindow();

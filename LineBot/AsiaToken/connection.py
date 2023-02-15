@@ -14,7 +14,7 @@ def signup(uid):
     with urllib.request.urlopen(req) as response:
         the_page = response.read()
         user_address = the_page.decode('utf-8')
-        print(user_address)
+        # print(user_address)
     return user_address
 
 def setImage(userId, imgUrl): 
@@ -28,7 +28,7 @@ def setImage(userId, imgUrl):
     with urllib.request.urlopen(req) as response:
         the_page = response.read()
         result = the_page.decode('utf-8')
-        print(result) #success
+        # print(result) #success
     return result
 
 # 取得帳戶地址及圖片位置
@@ -42,8 +42,8 @@ def getval(userId): #address&url
     with urllib.request.urlopen(req) as response:
         the_page = response.read().decode('utf-8')
         result = the_page.split(",")
-        print(result[0]) # address 
-        print(result[1]) # url
+        # print(result[0]) # address 
+        # print(result[1]) # url
     return result
     #getVal
 
@@ -58,7 +58,7 @@ def accountBalance(userId): #address&url
     with urllib.request.urlopen(req) as response:
         the_page = response.read()
         result = the_page.decode('utf-8')
-        print(result) # int
+        # print(result) # int
     return result
 
 # 取得交易紀錄
@@ -91,7 +91,7 @@ def userTransfer(userId,address2,value): #address&url
     with urllib.request.urlopen(req) as response:
         the_page = response.read()
         result = the_page.decode('utf-8')
-        print(result) # true
+        # print(result) # true
     return result
 
 def getUserAddress(userId): #address&url
@@ -104,5 +104,5 @@ def getUserAddress(userId): #address&url
     with urllib.request.urlopen(req) as response:
         the_page = response.read()
         result = the_page.decode('utf-8')
-        print(result) # address
+        # print(result) # address
     return result

@@ -1,7 +1,7 @@
 var YourLiffAppId = '1657672493-Ed95y1Rq';
 initializeLiff(YourLiffAppId)
+
 function initializeLiff(myLiffId) {
-    
     console.log(myLiffId)
     liff.init({
         liffId:myLiffId,
@@ -17,7 +17,6 @@ function initializeLiff(myLiffId) {
             });
         }else {
             console.log('你已登入過了')
-
         }
     })
     .catch((err) => {
@@ -30,12 +29,9 @@ function requestGet(){
     const AUT_Sum = document.getElementById("AUT-value").value;
     console.log(AUT_Sum)
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", 'https://24c8-49-213-161-66.jp.ngrok.io/liff?AUT-value=' + AUT_Sum , false ); // false for synchronous request
+    xmlHttp.open( "GET", 'https://token.asia.edu.tw/liff?AUT-value=' + AUT_Sum , false ); // false for synchronous request
     xmlHttp.send()
-
-
     // return xmlHttp.responseText;
-
 }
 
 $('#ButtonScan').click(() => {

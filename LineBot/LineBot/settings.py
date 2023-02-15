@@ -24,12 +24,13 @@ SECRET_KEY = 'django-insecure-_1tyi7qx1-(v*z54_+#tbma9%i#n+zj-ym8md9x)y%9vwu^vvv
 LINE_CHANNEL_ACCESS_TOKEN = 'Dbrwfw6gIBFeCQ0A9pNAtERQZQ7oPMSY+Tuc0A1avvA96WDxyITJSL243Cp5KT/XmUFMFyQdgmFxtBgfOPnusi6+OC0TrB7j9+ncWlUShjT+pEqeB6S0Wx2cYlPXsKrHP/jGsaRtUSysZWcXbibmagdB04t89/1O/w1cDnyilFU='
 LINE_CHANNEL_SECRET = 'a4645924f04da41570fb97726699ab91'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-
+# ALLOWED_HOSTS = ['120.108.111.231', 'localhost','token.asia.edu.tw']
 
 # Application definition
+# SECURE_SSL_REDIRECT = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'AsiaToken',
+    'sslserver',
 ]
 
 MIDDLEWARE = [

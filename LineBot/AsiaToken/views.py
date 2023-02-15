@@ -45,11 +45,11 @@ def callback(request):
         try:
             events = parser.parse(body, signature)
         except InvalidSignatureError:
-            print('HttpResponseForbidden')
+            # print('HttpResponseForbidden')
             return HttpResponseForbidden()
             
         except LineBotApiError:
-            print('HttpResponseForbidden')  
+            # print('HttpResponseForbidden')  
             return HttpResponseBadRequest()
         
         for event in events:
@@ -88,14 +88,14 @@ def callback(request):
 # 我的資產
 def buttons_message(event):
     getUid = event.source.user_id
-    print(getUid)
+    # print(getUid)
     # U090f1a921bb409eac239b6ae688f9a08
 
     f = open('AsiaToken/Json/assets.json', encoding='utf-8')
     data = json.load(f)
 
     Balance = connection.accountBalance(getUid)
-    print(Balance)
+    # print(Balance)
     data['body']['contents'][1]['contents'][0]['contents'][1]['text'] = Balance
     message = data
     return message
@@ -103,18 +103,18 @@ def buttons_message(event):
 # 交易紀錄
 def Carousel_Template(event):
     getUid = event.source.user_id
-    print(getUid)
+    # print(getUid)
     
     f = open('AsiaToken/Json/transaction.json', encoding='utf-8')
     data = json.load(f)
     
     transactionInfo = connection.getAccountData(getUid)
-    print("==============================")
-    print(transactionInfo)
+    # print("==============================")
+    # print(transactionInfo)
     # print(len(data))
-    print(len(transactionInfo))
+    # print(len(transactionInfo))
     for i in range(5):
-        print(i)
+        # print(i)
         dictNum = len(transactionInfo) - len(data)
         # data['contents']['body']['contents']['text'] = transactionInfo['from'] # from
         data['contents'][i]['body']['contents'][2]['contents'][1]['text'] = transactionInfo[len(transactionInfo)- 1 - i]['to']  # to : 'userAddress
@@ -131,7 +131,7 @@ def Carousel_Template(event):
 # 開戶
 def createWallet(event):
     getUid = event.source.user_id
-    print(getUid)
+    # print(getUid)
 
     userAdr = connection.signup(getUid) # call js API signup function
 
@@ -149,12 +149,12 @@ def createWallet(event):
 # 取得帳戶
 def getWalletInfo(event):
     getUid = event.source.user_id
-    print(getUid)
+    # print(getUid)
 
     get_LevelDb_imgUrl = connection.getval(getUid)
     f = open('AsiaToken/Json/signup.json', encoding='utf-8')
     data = json.load(f)
-    print(data)
+    # print(data)
     data['hero']['url'] = get_LevelDb_imgUrl[1] # url
     data['body']['contents'][0]['text'] = get_LevelDb_imgUrl[0]  # 
     data['footer']['contents'][0]['action']['text'] = get_LevelDb_imgUrl[0]
@@ -165,12 +165,12 @@ def getWalletInfo(event):
 def details(event):
     getUid = event.source.user_id
     # getName = line_bot_api.get_profile(userId)
-    print(getUid)
+    # print(getUid)
 
     f = open('AsiaToken/Json/details.json', encoding='utf-8')
     data = json.load(f)
     Balance = connection.accountBalance(getUid)
-    print(Balance)
+    # print(Balance)
     data['body']['contents'][2]['contents'][1]['text']= Balance[0]
     message = data
     return message
@@ -205,7 +205,6 @@ def scan(request):
                 print('python : ' + userTransfer ['address'])
                 print('python : ' + userTransfer['userID'])
                 _sendDataToAPI()
-                # connection.userTransfer(userTransfer['userID'], userTransfer['getAUT_value'], userTransfer ['address'])
             else:
                 print('address no data')
     return render(request, 'scan.html')
