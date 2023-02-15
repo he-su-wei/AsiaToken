@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- line api -->
+        <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+        <style>
+            @import url(https://fonts.googleapis.com/css?family=Raleway:400,800,200);
+            body {
+            background-color: #3498db;
+            }
+
+            #loader-container {
+            width: 200px;
+            height: 200px;
+            color: white;
+            margin: 0 auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%);
+            border: 5px solid #3498db;
+            border-radius: 50%;
+            -webkit-animation: borderScale 1s infinite ease-in-out;
+            animation: borderScale 1s infinite ease-in-out;
+            }
+
+            #loadingText {
+            font-family: 'Raleway', sans-serif;
+            font-weight: bold;
+            font-size: 2em;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%);
+            }
+
+            @-webkit-keyframes borderScale {
+            0% {
+                border: 5px solid white;
+            }
+            50% {
+                border: 25px solid #3498db;
+            }
+            100% {
+                border: 5px solid white;
+            }
+            }
+
+            @keyframes borderScale {
+            0% {
+                border: 5px solid white;
+            }
+            50% {
+                border: 25px solid #3498db;
+            }
+            100% {
+                border: 5px solid white;
+            }
+            }
+        </style>
+        
+    </head>
+
+    <body>
+        <div id="loader-container">
+            <p id="loadingText">Loading</p>
+        </div>
+        <script src="../static/javascript/transaction.js"></script> 
+
+        <!-- on phone console log -->
+       <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
+       <script>
+         // VConsole will be exported to `window.VConsole` by default.
+         var vConsole = new window.VConsole();
+       </script>
+    </body>
+</html>
