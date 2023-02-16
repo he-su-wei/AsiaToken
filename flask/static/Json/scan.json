@@ -1,0 +1,38 @@
+{
+  "type": "flex",
+  "altText": "test",
+  "contents": {
+      "type": "bubble",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "掃描交易地址",
+            "weight": "bold",
+            "size": "xxl",
+            "margin": "none",
+            "align": "center"
+          }
+        ]
+      },
+      "footer": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "button",
+            "style": "primary",
+            "color": "#905c44",
+            "margin": "none",
+            "action": {
+              "type": "uri",
+              "label": "掃描",
+              "uri": ""
+            }
+          }
+        ]
+      }
+  }
+}

@@ -41,7 +41,7 @@ function scan() {
                 console.log(e.userId);
                 var xmlHttp = new XMLHttpRequest();
               
-                xmlHttp.open( "GET", 'https://82cb-49-213-161-66.jp.ngrok.io/scan?toAddress=' + getAddress + '&' + 'userId=' + e.userId ,  false ); // false for synchronous request
+                xmlHttp.open( "GET", 'https://token.asia.edu.tw/scan?toAddress=' + getAddress + '&' + 'userId=' + e.userId ,  false ); // false for synchronous request
                 xmlHttp.send();
                 sendInfo(result.value)
                 liff.closeWindow();
