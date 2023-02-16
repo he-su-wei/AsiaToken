@@ -29,7 +29,7 @@ function requestGet(){
     const AUT_Sum = document.getElementById("AUT-value").value;
     console.log(AUT_Sum)
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", 'https://82cb-49-213-161-66.jp.ngrok.io/liff?AUT-value=' + AUT_Sum , false ); // false for synchronous request
+    xmlHttp.open( "GET", 'https://token.asia.edu.tw/liff?AUT-value=' + AUT_Sum , false ); // false for synchronous request
     xmlHttp.send()
     // return xmlHttp.responseText;
 }
