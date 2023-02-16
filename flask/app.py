@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import os
 from flask import Flask, request, render_template, abort
@@ -44,6 +45,8 @@ def callback():
 # 學你說話
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    msg = event.message.text
+    msg = msg.encode('utf-8')
     # if isinstance(event, MessageEvent):
     #     line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))
     if event.message.text == '我的資產':
@@ -72,8 +75,10 @@ def buttons_message(event):
     print(getUid)
     # U090f1a921bb409eac239b6ae688f9a08
 
-    f = open('Json/assets.json', encoding='utf-8')
-    data = json.load(f)
+    # f = open('Json/assets.json', encoding='utf-8')
+    filename = os.path.join(app.static_folder, 'Json/assets.json')
+    with open (filename, encoding='utf-8') as assets_file:
+        data = json.load(assets_file)
 
     Balance = connection.accountBalance(getUid)
     print(Balance)
@@ -86,8 +91,11 @@ def Carousel_Template(event):
     getUid = event.source.user_id
     print(getUid)
     
-    f = open('Json/transaction.json', encoding='utf-8')
-    data = json.load(f)
+    # f = open('Json/transaction.json', encoding='utf-8')
+    # data = json.load(f)
+    filename = os.path.join(app.static_folder, 'Json/transaction.json')
+    with open (filename, encoding='utf-8') as transaction_file:
+        data = json.load(transaction_file)
     
     transactionInfo = connection.getAccountData(getUid)
     print("==============================")
@@ -133,8 +141,12 @@ def getWalletInfo(event):
     print(getUid)
 
     get_LevelDb_imgUrl = connection.getval(getUid)
-    f = open('Json/signup.json', encoding='utf-8')
-    data = json.load(f)
+    # f = open('Json/signup.json', encoding='utf-8')
+    # data = json.load(f)
+    filename = os.path.join(app.static_folder, 'Json/signup.json')
+    with open (filename, encoding='utf-8') as signup_file:
+        data = json.load(signup_file)
+
     print(data)
     data['hero']['url'] = get_LevelDb_imgUrl[1] # url
     data['body']['contents'][0]['text'] = get_LevelDb_imgUrl[0]  # 
@@ -148,11 +160,17 @@ def details(event):
     # getName = line_bot_api.get_profile(userId)
     print(getUid)
 
-    f = open('Json/details.json', encoding='utf-8')
-    data = json.load(f)
+    # f = open('Json/details.json', encoding='utf-8')
+    # data = json.load(f)
+
+    filename = os.path.join(app.static_folder, 'Json/details.json')
+    with open (filename, encoding='utf-8') as details_file:
+        data = json.load(details_file)
+
     Balance = connection.accountBalance(getUid)
     print(Balance)
-    data['body']['contents'][2]['contents'][1]['text']= Balance[0]
+    data['body']['contents'][2]['contents'][1]['text']= Balance
+
     message = data
     return message
 
@@ -177,32 +195,33 @@ def liff():
 @app.route("/scan", methods=['GET'])
 def scan():
     if request.method == 'GET':
-            body = request.values
-            if body.get('toAddress') != None:
-                address = body.get('toAddress')
-                userId = body.get('userId')
-                userTransfer ['address'] = address
-                userTransfer['userID'] = userId
-                # accountBalance = connection.accountBalance(userId)
-                # if accountBalance <= getAUT_value:
-                
-                print('python : ' + userTransfer ['address'])
-                print('python : ' + userTransfer['userID'])
-                _sendDataToAPI()
-                # connection.userTransfer(userTransfer['userID'], userTransfer['getAUT_value'], userTransfer ['address'])
-            else:
-                print('address no data')
+        body = request.values
+        if body.get('toAddress') != None:
+            address = body.get('toAddress')
+            userId = body.get('userId')
+            userTransfer['address'] = address
+            userTransfer['userID'] = userId
+            # accountBalance = connection.accountBalance(userId)
+            # if accountBalance <= getAUT_value:
+            
+            print('python : ' + userTransfer['address'])
+            print('python : ' + userTransfer['userID'])
+
+            # _sendDataToAPI()
+            # connection.userTransfer(userTransfer['userID'], userTransfer['getAUT_value'], userTransfer ['address'])
+        else:
+            print('address no data')
     return render_template('scan.html')
 
-def _sendDataToAPI(request):
+@app.route("/transaction", methods=['GET'])
+def _sendDataToAPI():
     # print(userTransfer)
     try:
-        # time.sleep(5)
         print(userTransfer['userID'], userTransfer['getAUT_value'],  userTransfer ['address'])
         connection.userTransfer(userTransfer['userID'], userTransfer['getAUT_value'],  userTransfer ['address'])
     except:
         print("交易失敗")
-    return render_template(request, 'transaction.html')
+    return render_template('transaction.html')
 
 
 if __name__ == "__main__":
