@@ -20,9 +20,6 @@ def uploadImg(img,uid):
     PATH = 'static/images/{}.png'.format(uid) #A Filepath to an image on your computer"
     title = 'AsisToken-{}'.format(uid)
 
-    fullpath = os.path.join(path, filename + '.' + filetype)
-    img.save(fullpath)
-
     im = pyimgur.Imgur(CLIENT_ID)
     # delete_image = delete_image(image_id)
     uploaded_image = im.upload_image(PATH, title=title)
