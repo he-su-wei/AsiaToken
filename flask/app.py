@@ -7,7 +7,8 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
 
 import configparser
-from images import imgur
+# import imgur
+import pyimgur
 
 import json
 import time
@@ -125,7 +126,7 @@ def createWallet(event):
     userAdr = connection.signup(getUid) # call js API signup function
 
     get_img = qrcode.make(userAdr) # make this user QR code
-    get_imgUrl = imgur.uploadImg(get_img, getUid) # call imgur.py get imgur's URL
+    get_imgUrl = uploadImg(get_img, getUid) # call imgur.py get imgur's URL
     # get_imgUrl = 'https://i.imgur.com/GO95Y6J.png'
     message = connection.setImage(getUid, get_imgUrl) #call js API setImage function
     linkResult = line_bot_api.link_rich_menu_to_user(getUid, 'richmenu-002d04a75b219f9d4654552a2eeb6418')
@@ -134,6 +135,24 @@ def createWallet(event):
 # richmenu-f904f4354229ab624112dfa36da2f195 //開戶 
 # richmenu-002d04a75b219f9d4654552a2eeb6418 //資產、錢包
 # line_bot_api.link_rich_menu_to_user('U090f1a921bb409eac239b6ae688f9a08', 'richmenu-f904f4354229ab624112dfa36da2f195')
+
+
+def uploadImg(img,uid):
+    CLIENT_ID = "44c92709ec667f4"
+    fullpath = os.path.join(app.static_folder, 'images/{}.png'.format(uid))
+    img.save(fullpath)
+    # img.save('images/{}.png'.format(uid))
+    # PATH = 'images/{}.png'.format(uid) #A Filepath to an image on your computer"
+    PATH = fullpath
+    title = 'AsisToken-{}'.format(uid)
+
+    im = pyimgur.Imgur(CLIENT_ID)
+    # delete_image = delete_image(image_id)
+    uploaded_image = im.upload_image(PATH, title=title)
+    print(uploaded_image.title)
+    print(uploaded_image.link)
+    print(uploaded_image.type)
+    return uploaded_image.link
 
 # 取得帳戶
 def getWalletInfo(event):
