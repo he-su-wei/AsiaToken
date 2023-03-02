@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+        <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <!-- line api -->
         <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -65,16 +67,80 @@
     </head>
 
     <body>
+        <!-- {{data}} -->
         <div id="loader-container">
-            <p id="loadingText">Loading</p>
+            <p id="loadingText">Paying</p>
         </div>
-        <script src="../static/javascript/transaction.js"></script> 
 
+        <script src="../static/javascript/transaction.js"></script> 
         <!-- on phone console log -->
        <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
        <script>
-         // VConsole will be exported to `window.VConsole` by default.
-         var vConsole = new window.VConsole();
+            var vConsole = new window.VConsole();
+       </script>
+
+       <script>
+            const userID = '{{ data.userID}}'
+            const value = parseInt('{{ data.getAUT_value}}')
+            const address = '{{ data.address}}'
+            console.log(userID)
+            console.log(value)
+            console.log(address)
+
+            // alert(userID,value,address)
+            // if (userID != null & value != 0 & address != null){
+            sendTransfer(userID,address, value )
+            // }
+
+            function sendTransfer(userId, address2, val){
+                console.log('test')
+                // const url = 'http://120.108.111.229:8080/userTransfer';
+                $.ajax({
+                    type:'POST',
+                    url : 'http://120.108.111.229:8080/userTransfer',
+                    data : {
+                        'userID': userId, 
+                        'addressTo': address2, 
+                        'value': val,
+                    },
+                    success : function(result){
+                        console.log(result);
+                    },
+                    dataType : 'json'
+                })
+                // fetch(url,{
+                //     method: 'POST',
+                //     headers:{
+                //         'Accept':'application/json',
+                //         'Content' : 'application/json'
+                //     },
+                //     body: JSON.stringify({
+                //         'userID': userID, 
+                //         'addressTo': address, 
+                //         'value': value,
+                //     })
+                //     .then(response => response.JSON())
+                //     .then(response => console.log(JSON.stringify(response)))
+                // })
+                // axios({
+                //     method: 'post',
+                //     url: url,
+                //     data : {
+                //         'userID': userID, 
+                //         'addressTo': address, 
+                //         'value': value,
+                //     }
+                // })
+                
+                // .then(res => {
+                //     // console.log('test')
+                //     console.log(res);
+                // })
+                // .catch(error => {
+                //     console.log(error.response);
+                // });
+            }
+            
        </script>
     </body>
 </html>
