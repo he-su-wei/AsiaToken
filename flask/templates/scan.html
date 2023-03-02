@@ -17,5 +17,151 @@
          // VConsole will be exported to `window.VConsole` by default.
          var vConsole = new window.VConsole();
        </script>
+       {{ data }}
+
+       <!-- open scan and push info  -->
+       <script>
+            var value = '{{ data.getAUT_value}}'
+            console.log(value)
+
+            function scan() {
+                liff.scanCodeV2()
+                    .then((result) => {
+                        //alert(JSON.stringify(result));
+                        console.log(result.value);
+                        // alert(result.value)
+                        getAddress = result.value
+                        
+                        liff.getProfile().then(function (e) {
+                            console.log(e.userId);
+                            var xmlHttp = new XMLHttpRequest();
+                        
+                            xmlHttp.open( "GET", 'https://token.asia.edu.tw/scan?toAddress=' + getAddress + '&' + 'userId=' + e.userId ,  false ); // false for synchronous request
+                            xmlHttp.send();
+                            sendInfo(result.value, value)
+                            // liff.closeWindow();
+                            // return success;
+                        });
+
+                        // return result.value;
+                    }, (err) => {
+                        alert(JSON.stringify(err));
+                    })
+                    .catch((err) => {
+                        console.log("error", err);
+                })
+                
+            };
+
+            function sendInfo(address, value) {
+
+                liff.sendMessages([
+                    {
+                        "type": "flex",
+                        "altText": "掃描交易地址",
+
+                        "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "spacing": "md",
+                        "action": {
+                            "type": "uri",
+                            "uri": "https://linecorp.com"
+                        }
+                        },
+                        "contents": {
+                            "type": "bubble",
+                            "header": {
+                                "type": "box",
+                                "layout": "vertical",
+                                "contents": [
+                                    {
+                                    "type": "text",
+                                    "text": "請確認交易資訊",
+                                    "wrap": true,
+                                    "color": "#aaaaaa",
+                                    "size": "xl",
+                                    "align": "center"
+                                    },
+                                    {
+                                    "type": "separator",
+                                    "margin": "md",
+                                    },
+                                    {
+                                    "type": "text",
+                                    "text": "hello, world",
+                                    "contents": [
+                                        {
+                                        "type": "span",
+                                        "text": "交易名稱 : ",
+                                        "weight": "bold"
+                                        },
+                                        {
+                                        "type": "span",
+                                        "text": "亞大幣"
+                                        }
+                                    ],
+                                    "margin": "xl"
+                                    },
+                                    {
+                                    "type": "text",
+                                    "text": "hello, world",
+                                    "contents": [
+                                        {
+                                        "type": "span",
+                                        "text": "交易數量 : ",
+                                        "weight": "bold"
+                                        },
+                                        {
+                                        "type": "span",
+                                        "text": value
+                                        }
+                                    ]
+                                    },
+                                    {
+                                    "type": "text",
+                                    "text": "hello, world",
+                                    "contents": [
+                                        {
+                                        "type": "span",
+                                        "text": "交易對象 : ",
+                                        "weight": "bold"
+                                        },
+                                        {
+                                        "type": "span",
+                                        "text": address
+                                        }
+                                    ]
+                                    }
+                                ]
+                            },
+                            "footer": {
+                                "type": "box",
+                                "layout": "vertical",
+                                "contents": [
+                                {
+                                    "type": "button",
+                                    "style": "primary",
+                                    "color": "#905c44",
+                                    "margin": "none",
+                                    "action": {
+                                    "type": "uri",
+                                    "label": "移轉",
+                                    "uri": "https://liff.line.me/1660664256-XPp99MR7"
+                                    }
+                                }
+                                ]
+                            }
+                        }
+                    },
+                ])
+                .then(() => {
+                    console.log("message sent");
+                })
+                .catch((err) => {
+                    console.log("error", err);
+                }); 
+            }
+       </script>
     </body>
 </html>
