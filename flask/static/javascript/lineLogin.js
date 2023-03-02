@@ -1,12 +1,12 @@
-var YourLiffAppId = '1657672493-Ed95y1Rq';
-initializeLiff(YourLiffAppId)
+var YourLiffAppId = '1660664256-4yKZZ6wy';
+initializeLiff(YourLiffAppId);
 
 function initializeLiff(myLiffId) {
-    console.log(myLiffId)
     liff.init({
         liffId:myLiffId,
     })
     .then(() => {
+        console.log(myLiffId)
         if (!liff.isLoggedIn()) {
             console.log('你尚未登入過!!')
             liff.login({ redirectUri: location.href});
@@ -20,8 +20,9 @@ function initializeLiff(myLiffId) {
         }
     })
     .catch((err) => {
+        console.log(myLiffId)
         alert(JSON.stringify(err));
-        console.log('初始化失敗')
+        console.log('123')
     });
 }
 
@@ -68,7 +69,7 @@ $('#ButtonScan').click(() => {
                         "action": {
                         "type": "uri",
                         "label": "掃描",
-                        "uri": "https://liff.line.me/1657672493-6Dzrp38q"
+                        "uri": "https://liff.line.me/1660664256-yODggrBq"
                         }
                     }
                     ]

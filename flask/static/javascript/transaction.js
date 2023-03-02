@@ -1,4 +1,4 @@
-var YourLiffAppId = '1657672493-zOBZPaGR';
+var YourLiffAppId = '1660664256-XPp99MR7';
 initializeLiff(YourLiffAppId)
 
 function initializeLiff(myLiffId) {
@@ -18,7 +18,7 @@ function initializeLiff(myLiffId) {
             liff.getProfile().then(function (e) {
                 console.log('Your User ID :' + e.userId);
             });
-            liff.closeWindow();    
+            // liff.closeWindow();    
         }
     })
     .catch((err) => {
@@ -26,4 +26,5 @@ function initializeLiff(myLiffId) {
         console.log('初始化失敗')
     });
 }
+
 
