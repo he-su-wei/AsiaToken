@@ -43,7 +43,6 @@ def callback():
 
     return 'OK'
 
-# 學你說話
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
@@ -71,6 +70,7 @@ def handle_message(event):
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))
 
+# 我的資產
 def buttons_message(event):
     getUid = event.source.user_id
     print(getUid)
