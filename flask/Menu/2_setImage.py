@@ -4,8 +4,8 @@ from linebot import (LineBotApi, WebhookHandler)
 #     print(e)
 #  LineBotApi( message token )
 
-line_bot_api = LineBotApi('Dbrwfw6gIBFeCQ0A9pNAtERQZQ7oPMSY+Tuc0A1avvA96WDxyITJSL243Cp5KT/XmUFMFyQdgmFxtBgfOPnusi6+OC0TrB7j9+ncWlUShjT+pEqeB6S0Wx2cYlPXsKrHP/jGsaRtUSysZWcXbibmagdB04t89/1O/w1cDnyilFU=')
-with open("AsiaToken/Menu/info.png", 'rb') as f:
+line_bot_api = LineBotApi('8yE3QQnj1l19ZkKo3Xy1u4BwxrAhNptYW1DH/tw2e30qWuOI7fTvMIPcu4cGOSeQfdzo+NqZTNbBaCrXBrJ0EycNNyVJygvaB3Ypgkeqh1prTUdyK9zv4PE2JcbOHBF/NmQtG/nYXUo7dzTrD4npcQdB04t89/1O/w1cDnyilFU=')
+with open("flask/Menu/info.png", 'rb') as f:
     print(f)
 
-    line_bot_api.set_rich_menu_image("richmenu-002d04a75b219f9d4654552a2eeb6418", "image/jpeg", f)
+    line_bot_api.set_rich_menu_image("richmenu-4e08cdd6c12c7cfcc86ba796c976efc8", "image/jpeg", f)

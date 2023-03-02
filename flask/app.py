@@ -24,8 +24,8 @@ app = Flask(__name__)
 
 # line_bot_api = LineBotApi(config.get('line-bot', 'channel_access_token'))
 # handler = WebhookHandler(config.get('line-bot', 'channel_secret'))
-line_bot_api = LineBotApi('Dbrwfw6gIBFeCQ0A9pNAtERQZQ7oPMSY+Tuc0A1avvA96WDxyITJSL243Cp5KT/XmUFMFyQdgmFxtBgfOPnusi6+OC0TrB7j9+ncWlUShjT+pEqeB6S0Wx2cYlPXsKrHP/jGsaRtUSysZWcXbibmagdB04t89/1O/w1cDnyilFU=')
-handler = WebhookHandler('a4645924f04da41570fb97726699ab91')
+line_bot_api = LineBotApi('8yE3QQnj1l19ZkKo3Xy1u4BwxrAhNptYW1DH/tw2e30qWuOI7fTvMIPcu4cGOSeQfdzo+NqZTNbBaCrXBrJ0EycNNyVJygvaB3Ypgkeqh1prTUdyK9zv4PE2JcbOHBF/NmQtG/nYXUo7dzTrD4npcQdB04t89/1O/w1cDnyilFU=')
+handler = WebhookHandler('c2707c4dda0c452170819233cab9c759')
 
 # 接收 LINE 的資訊
 @app.route("/callback", methods=['POST'])
@@ -111,6 +111,7 @@ def Carousel_Template(event):
         data['contents'][i]['body']['contents'][3]['contents'][1]['text'] = transactionInfo[len(transactionInfo)- 1 - i]['value'] # value : "count"
         # 時間轉換
         time_stamp = transactionInfo[len(transactionInfo)- 1 - i]['time'] # 設定timeStamp
+        print(time_stamp)
         struct_time = time.localtime(int(time_stamp)) # 轉成時間元組
         timeString = time.strftime("%Y-%m-%d %H:%M:%S", struct_time) # 轉成字串
 
@@ -129,11 +130,13 @@ def createWallet(event):
     get_imgUrl = uploadImg(get_img, getUid) # call imgur.py get imgur's URL
     # get_imgUrl = 'https://i.imgur.com/GO95Y6J.png'
     message = connection.setImage(getUid, get_imgUrl) #call js API setImage function
-    linkResult = line_bot_api.link_rich_menu_to_user(getUid, 'richmenu-002d04a75b219f9d4654552a2eeb6418')
+    linkResult = line_bot_api.link_rich_menu_to_user(getUid, 'richmenu-4e08cdd6c12c7cfcc86ba796c976efc8')
     # get_img.show()
     return message # suess
 # richmenu-f904f4354229ab624112dfa36da2f195 //開戶 
+# richmenu-1eddb758b8a349e49e5e4a41ea88a563 // 開戶 james'line accound
 # richmenu-002d04a75b219f9d4654552a2eeb6418 //資產、錢包
+# richmenu-4e08cdd6c12c7cfcc86ba796c976efc8 //資產、錢包 james'line accound
 # line_bot_api.link_rich_menu_to_user('U090f1a921bb409eac239b6ae688f9a08', 'richmenu-f904f4354229ab624112dfa36da2f195')
 
 
@@ -230,18 +233,19 @@ def scan():
             # connection.userTransfer(userTransfer['userID'], userTransfer['getAUT_value'], userTransfer ['address'])
         else:
             print('address no data')
-    return render_template('scan.html')
+    return render_template('scan.html', data = userTransfer)
 
 @app.route("/transaction", methods=['GET'])
 def _sendDataToAPI():
     # print(userTransfer)
     try:
         print(userTransfer['userID'], userTransfer['getAUT_value'],  userTransfer ['address'])
-        connection.userTransfer(userTransfer['userID'], userTransfer['getAUT_value'],  userTransfer ['address'])
+        # connection.userTransfer(userTransfer['userID'], userTransfer['getAUT_value'],  userTransfer ['address'])
     except:
         print("交易失敗")
-    return render_template('transaction.html')
+    return render_template('transaction.html', data = userTransfer)
 
 
 if __name__ == "__main__":
+    app.debug = True
     app.run()
