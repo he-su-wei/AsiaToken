@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import os
-from flask import Flask, request, render_template, abort
+from flask import Flask, request, render_template, abort, redirect, url_for, send_file
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
@@ -11,7 +11,7 @@ import configparser
 import pyimgur
 
 import json
-import time
+import time, io
 import qrcode
 
 import connection
@@ -127,20 +127,21 @@ def createWallet(event):
     userAdr = connection.signup(getUid) # call js API signup function
 
     get_img = qrcode.make(userAdr) # make this user QR code
-    get_imgUrl = uploadImg(get_img, getUid) # call imgur.py get imgur's URL
+    get_imgUrl = _uploadImg(get_img, getUid) # call imgur.py get imgur's URL
     # get_imgUrl = 'https://i.imgur.com/GO95Y6J.png'
     message = connection.setImage(getUid, get_imgUrl) #call js API setImage function
     linkResult = line_bot_api.link_rich_menu_to_user(getUid, 'richmenu-4e08cdd6c12c7cfcc86ba796c976efc8')
     # get_img.show()
     return message # suess
+
 # richmenu-f904f4354229ab624112dfa36da2f195 //開戶 
 # richmenu-1eddb758b8a349e49e5e4a41ea88a563 // 開戶 james'line accound
 # richmenu-002d04a75b219f9d4654552a2eeb6418 //資產、錢包
 # richmenu-4e08cdd6c12c7cfcc86ba796c976efc8 //資產、錢包 james'line accound
 # line_bot_api.link_rich_menu_to_user('U090f1a921bb409eac239b6ae688f9a08', 'richmenu-f904f4354229ab624112dfa36da2f195')
 
-
-def uploadImg(img,uid):
+# 搭配開戶使用
+def _uploadImg(img,uid):
     CLIENT_ID = "44c92709ec667f4"
     fullpath = os.path.join(app.static_folder, 'images/{}.png'.format(uid))
     img.save(fullpath)
@@ -170,7 +171,8 @@ def getWalletInfo(event):
         data = json.load(signup_file)
 
     print(data)
-    data['hero']['url'] = get_LevelDb_imgUrl[1] # url
+    # data['hero']['url'] = get_LevelDb_imgUrl[1] # url
+    data['hero']['url'] = 'https://token.asia.edu.tw/code?address={}'.format(get_LevelDb_imgUrl[0]) # url
     data['body']['contents'][0]['text'] = get_LevelDb_imgUrl[0]  # 
     data['footer']['contents'][0]['action']['text'] = get_LevelDb_imgUrl[0]
     message = data
@@ -195,6 +197,17 @@ def details(event):
 
     message = data
     return message
+
+# 製作 QR Code web => https://token.asia.edu.tw/code?address=0x5f1c5sfv1fd5v1f51vf
+@app.route('/code', methods=['GET'])
+def home_page():
+    userAdr = request.args.get('address')
+    get_img = qrcode.make(userAdr)
+    buf = io.BytesIO()
+    get_img.save(buf)
+    buf.seek(0)
+    # buff.close() 該對象使用完毕直接關掉，該内存裡的内容被清空
+    return send_file(buf, mimetype='image/jpeg')
 
 userTransfer = {'userID': '', 'getAUT_value': 0, 'address': ''}
 #  web render html
