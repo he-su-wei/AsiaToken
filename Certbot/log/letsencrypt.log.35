@@ -1,0 +1,17 @@
+2023-02-19 20:33:04,854:DEBUG:certbot._internal.main:certbot version: 2.2.0
+2023-02-19 20:33:04,854:DEBUG:certbot._internal.main:Location of certbot entry point: C:\Program Files\Certbot\bin\certbot.exe
+2023-02-19 20:33:04,854:DEBUG:certbot._internal.main:Arguments: ['--preconfigured-renewal']
+2023-02-19 20:33:04,854:DEBUG:certbot._internal.main:Discovered plugins: PluginsRegistry(PluginEntryPoint#manual,PluginEntryPoint#null,PluginEntryPoint#standalone,PluginEntryPoint#webroot)
+2023-02-19 20:33:04,931:DEBUG:certbot._internal.log:Root logging level set at 30
+2023-02-19 20:33:04,957:DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): r3.o.lencr.org:80
+2023-02-19 20:33:05,236:DEBUG:urllib3.connectionpool:http://r3.o.lencr.org:80 "POST / HTTP/1.1" 200 503
+2023-02-19 20:33:05,240:DEBUG:certbot.ocsp:OCSP response for certificate C:\Certbot\live\token.asia.edu.tw\cert.pem is signed by the certificate's issuer.
+2023-02-19 20:33:05,243:DEBUG:certbot.ocsp:OCSP certificate status for C:\Certbot\live\token.asia.edu.tw\cert.pem is: OCSPCertStatus.GOOD
+2023-02-19 20:33:05,263:DEBUG:certbot._internal.display.obj:Notifying user: Found the following certs:
+  Certificate Name: token.asia.edu.tw
+    Serial Number: 4a1ba01b4685e056ff4142e34601bfb1f61
+    Key Type: ECDSA
+    Domains: token.asia.edu.tw
+    Expiry Date: 2023-04-18 14:49:21+00:00 (VALID: 58 days)
+    Certificate Path: C:\Certbot\live\token.asia.edu.tw\fullchain.pem
+    Private Key Path: C:\Certbot\live\token.asia.edu.tw\privkey.pem

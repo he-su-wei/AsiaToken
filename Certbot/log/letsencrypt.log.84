@@ -1,0 +1,20 @@
+2023-01-24 11:55:44,175:DEBUG:certbot._internal.main:certbot version: 2.2.0
+2023-01-24 11:55:44,175:DEBUG:certbot._internal.main:Location of certbot entry point: C:\Program Files\Certbot\bin\certbot.exe
+2023-01-24 11:55:44,175:DEBUG:certbot._internal.main:Arguments: ['--preconfigured-renewal']
+2023-01-24 11:55:44,175:DEBUG:certbot._internal.main:Discovered plugins: PluginsRegistry(PluginEntryPoint#manual,PluginEntryPoint#null,PluginEntryPoint#standalone,PluginEntryPoint#webroot)
+2023-01-24 11:55:44,228:DEBUG:certbot._internal.log:Root logging level set at 30
+2023-01-24 11:55:44,228:DEBUG:certbot._internal.display.obj:Notifying user: Processing C:\Certbot\renewal\token.asia.edu.tw.conf
+2023-01-24 11:55:44,268:DEBUG:certbot._internal.plugins.selection:Requested authenticator <certbot._internal.cli.cli_utils._Default object at 0x000001408C1B21F0> and installer <certbot._internal.cli.cli_utils._Default object at 0x000001408C1B21F0>
+2023-01-24 11:55:44,288:DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): r3.o.lencr.org:80
+2023-01-24 11:55:44,552:DEBUG:urllib3.connectionpool:http://r3.o.lencr.org:80 "POST / HTTP/1.1" 200 503
+2023-01-24 11:55:44,552:DEBUG:certbot.ocsp:OCSP response for certificate C:\Certbot\archive\token.asia.edu.tw\cert1.pem is signed by the certificate's issuer.
+2023-01-24 11:55:44,558:DEBUG:certbot.ocsp:OCSP certificate status for C:\Certbot\archive\token.asia.edu.tw\cert1.pem is: OCSPCertStatus.GOOD
+2023-01-24 11:55:44,568:DEBUG:certbot._internal.display.obj:Notifying user: Certificate not yet due for renewal
+2023-01-24 11:55:44,568:DEBUG:certbot._internal.plugins.selection:Requested authenticator manual and installer None
+2023-01-24 11:55:44,568:DEBUG:certbot._internal.display.obj:Notifying user: 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+2023-01-24 11:55:44,568:DEBUG:certbot._internal.display.obj:Notifying user: The following certificates are not due for renewal yet:
+2023-01-24 11:55:44,578:DEBUG:certbot._internal.display.obj:Notifying user:   C:\Certbot\live\token.asia.edu.tw\fullchain.pem expires on 2023-04-18 (skipped)
+2023-01-24 11:55:44,578:DEBUG:certbot._internal.display.obj:Notifying user: No renewals were attempted.
+2023-01-24 11:55:44,578:DEBUG:certbot._internal.display.obj:Notifying user: - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+2023-01-24 11:55:44,578:DEBUG:certbot._internal.renewal:no renewal failures
