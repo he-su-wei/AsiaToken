@@ -28,7 +28,7 @@
 <aside>
 📷 掃描官方 QR Code
 
-![Untitled](Untitled.png)
+![Untitled](images/Untitled.png)
 
 </aside>
 
