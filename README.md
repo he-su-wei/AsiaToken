@@ -39,7 +39,7 @@
 5. 掃描 QR Code 。
 6. 顯示官方帳戶資訊後點選加入好友。
 
-![Untitled](Untitled%201.png)
+![Untitled](images/Untitled%201.png)
 
 ---
 
@@ -56,13 +56,13 @@
 <aside>
 💡 Flex-message
 
-![Untitled](Untitled%202.png)
+![Untitled](images/Untitled%202.png)
 
 </aside>
 
-![Untitled](Untitled%203.png)
+![Untitled](images/Untitled%203.png)
 
-![Untitled](Untitled%204.png)
+![Untitled](images/Untitled%204.png)
 
 ---
 
@@ -77,13 +77,13 @@
 <aside>
 📷 Flex-message
 
-![Untitled](Untitled%205.png)
+![Untitled](images/Untitled%205.png)
 
 </aside>
 
-![Untitled](Untitled%206.png)
+![Untitled](images/Untitled%206.png)
 
-![Untitled](Untitled%207.png)
+![Untitled](images/Untitled%207.png)
 
 ---
 
@@ -98,13 +98,13 @@
 <aside>
 📷 Flex-message
 
-![Untitled](Untitled%208.png)
+![Untitled](images/Untitled%208.png)
 
 </aside>
 
-![Untitled](Untitled%209.png)
+![Untitled](images/Untitled%209.png)
 
-![Untitled](Untitled%2010.png)
+![Untitled](images/Untitled%2010.png)
 
 ---
 
@@ -127,16 +127,16 @@
 > - 交易對象
 > - 交易數量
 
-![Untitled](Untitled%2011.png)
+![Untitled](images/Untitled%2011.png)
 
 <aside>
 📷 Flex-message
 
-![Untitled](Untitled%2012.png)
+![Untitled](images/Untitled%2012.png)
 
-![Untitled](Untitled%2013.png)
+![Untitled](images/Untitled%2013.png)
 
-![Untitled](Untitled%2014.png)
+![Untitled](images/Untitled%2014.png)
 
 </aside>
 
@@ -158,20 +158,20 @@
 > 1. 點選資產
 > 2. 點選回復訊息下方的資產移轉按鈕。
 >     
->     ![Untitled](Untitled%208.png)
+>     ![Untitled](images/Untitled%208.png)
 >     
 
 1. 顯示浮動視窗
 2. Loading…..
     
-    ![Untitled](Untitled%2015.png)
+    ![Untitled](images/Untitled%2015.png)
     
 
 1.  系統抓取使用者帳戶餘額。
 2. 等待抓取資訊後顯示提示視窗【餘額】
 3. 點選確認
     
-    ![Untitled](Untitled%2016.png)
+    ![Untitled](images/Untitled%2016.png)
     
 
 <aside>
@@ -183,20 +183,20 @@
 > 
 > 1. 進入交易頁面【轉出數量】
 >     
->     ![Untitled](Untitled%2017.png)
+>     ![Untitled](images/Untitled%2017.png)
 >     
 
 **手動輸入**
 
 1. 使用者輸入數量，點選輸入框輸入並送出。
     
-    ![Untitled](Untitled%2018.png)
+    ![Untitled](images/Untitled%2018.png)
     
 
 - **使用按鈕**
 1. 使用者點選最大值按鈕並送出。
     
-    ![Untitled](Untitled%2019.png)
+    ![Untitled](images/Untitled%2019.png)
     
 
 ### Part 2.
@@ -206,17 +206,17 @@
 
 1. 系統將請求主鏡頭使用權限。
     
-    ![Untitled](Untitled%2020.png)
+    ![Untitled](images/Untitled%2020.png)
     
 
 1. 點選確認，啟用掃描視窗。
     
-    ![Untitled](Untitled%2021.png)
+    ![Untitled](images/Untitled%2021.png)
     
 
 1. 鏡頭對準 QR Code【錢包地址】，並顯示結果
     
-    ![Untitled](Untitled%2022.png)
+    ![Untitled](images/Untitled%2022.png)
     
 
 ### Part 3.
@@ -225,21 +225,21 @@
 > 
 1. 顯示交易資訊，選取確認或取消按鈕。
     
-    ![Untitled](Untitled%2023.png)
+    ![Untitled](images/Untitled%2023.png)
     
 
 **確認交易**
 
 1. 確認資訊無誤，點選確認，進入交易階段。
     
-    ![Untitled](Untitled%2024.png)
+    ![Untitled](images/Untitled%2024.png)
     
 
 **取消交易**
 
 1. 反悔交易或資訊有誤，點選取消退出交易。
     
-    ![Untitled](Untitled%2025.png)
+    ![Untitled](images/Untitled%2025.png)
     
 - 顯示交易資訊，如確認無誤點選確認，若資訊錯誤或反悔交易可點選取消，系統將清除該筆資訊停止交易。
 
@@ -254,15 +254,15 @@
 2. 當網頁關閉 並重新開啟網頁判斷是否超過1分鐘 是:清除網頁資訊 否:繼續顯示網頁並繼續交易。
 3. 輸入交易數量進行比對使用者持有數量 小於:繼續交易流程 大於:alert(餘額不足)。 
 
-![Untitled](Untitled%2026.png)
+![Untitled](images/Untitled%2026.png)
 
 **1.**
 
-![Untitled](Untitled%2027.png)
+![Untitled](images/Untitled%2027.png)
 
 **2.**
 
-![Untitled](Untitled%2028.png)
+![Untitled](images/Untitled%2028.png)
 
 **3.**
 
